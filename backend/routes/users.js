@@ -3,16 +3,17 @@ const router = express.Router();
 const authorize = require('../middlewares/authorize');
 const UserModel = require('../models/UserModel');
 const FollowModel = require('../models/FollowModel');
+const jwt = require('../library/jwt');
 
 // Public endpoints
 router.post('/', (request, response) => {
 
     let form = {
-        email: {required: true},
-        password: {required: true},
-        firstname: {required: true},
-        lastname: {required: false},
-        avatar: {required: false}
+        email: { required: true },
+        password: { required: true },
+        firstname: { required: true },
+        lastname: { required: false },
+        avatar: { required: false }
     };
 
     const fieldMissing = {
@@ -85,7 +86,7 @@ router.post('/login', (request, response) => {
             lastname: user.lastname,
             email: user.email,
             avatar: user.avatar,
-            accessToken: null // THis is the place where you should pass generated access token
+            accessToken: jwt.createAccessToken({ id: user.id }) // This is the place where you should pass generated access token
         })
     });
 });
