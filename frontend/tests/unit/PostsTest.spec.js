@@ -104,3 +104,32 @@ describe('Posts', () => {
         expect(true).toBe(true)
     });
 });
+
+describe('Posts', () => {
+
+    // Now mount the component and you have the wrapper
+
+    const wrapper = mount(Posts, {router, store, localVue})
+
+    it('renders correct amount of posts', () => {
+    
+        expect(3).toEqual(5)
+
+    })
+
+});
+
+describe('Posts', () => {
+
+    // Now mount the component and you have the wrapper
+
+    const wrapper = mount(Posts, {router, store, localVue})
+
+    // Check that this component properly displays posts date
+    it('renders the correct date', () => {
+
+        expect(wrapper.html()).toContain('Saturday, December 5, 2020 1:53 PM')
+
+    })
+
+});
