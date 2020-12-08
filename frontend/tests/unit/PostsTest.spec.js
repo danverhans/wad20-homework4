@@ -96,13 +96,33 @@ jest.mock("axios", () => ({
     })
 }));
 
+
 describe('Posts', () => {
 
-    const wrapper = mount(Posts, {router, store, localVue});
+    // Now mount the component and you have the wrapper
 
-    it('1 == 1', function () {
-        expect(true).toBe(true)
-    });
+    const wrapper = mount(Posts, {router, store, localVue})
+
+    // Check that this component renders media correctly
+    it('renders media correctly', () => {
+    
+        const items = wrapper.findAll('.post')
+        for (let i = 0; i < items.length; i++) {
+            const element = items.at(i);
+            if(testData[i].media!=null){
+                if(testData[i].media.type=='video'){
+                    expect(element.find('.post-image').find('video')).toEqual({"selector": "video"})
+                }
+                if(testData[i].media.type=='image'){
+                    expect(element.find('.post-image').find('img')).toEqual({"selector": "img"})
+                }
+            }
+            else{
+                expect(element.find('.post-image')).toEqual(undefined)
+            }
+        }
+    })
+
 });
 
 describe('Posts', () => {
@@ -113,10 +133,8 @@ describe('Posts', () => {
 
     // Check that this component renders correct amount of posts
     it('renders correct amount of posts', () => {
-    
         const items = wrapper.findAll('.post')
         expect(items.length).toEqual(testData.length)
-
     })
 
 });
