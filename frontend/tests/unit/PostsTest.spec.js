@@ -108,18 +108,16 @@ describe('Posts', () => {
     
         const items = wrapper.findAll('.post')
         for (let i = 0; i < items.length; i++) {
-            const element = items.at(i);
-            if(testData[i].media!=null){
-                if(testData[i].media.type=='video'){
-                    expect(element.find('.post-image').find('video')).toEqual({"selector": "video"})
-                }
-                if(testData[i].media.type=='image'){
-                    expect(element.find('.post-image').find('img')).toEqual({"selector": "img"})
-                }
-            }
-            else{
-                expect(element.find('.post-image')).toEqual(undefined)
-            }
+            let element = items.at(i);
+            if (element.html().includes('post-image')){
+                element=element.find('.post-image')
+                if (element.html().includes('video'))
+                    expect(testData[i].media.type).toEqual('video')
+                else if(element.html().includes('img'))
+                    expect(testData[i].media.type).toEqual('image')
+            }else
+                expect(testData[i].media).toEqual(null)    
+            
         }
     })
 
