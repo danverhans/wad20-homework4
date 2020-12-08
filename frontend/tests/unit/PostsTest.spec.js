@@ -111,9 +111,11 @@ describe('Posts', () => {
 
     const wrapper = mount(Posts, {router, store, localVue})
 
+    // Check that this component renders correct amount of posts
     it('renders correct amount of posts', () => {
     
-        expect(3).toEqual(5)
+        const items = wrapper.findAll('.post')
+        expect(items.length).toEqual(testData.length)
 
     })
 
